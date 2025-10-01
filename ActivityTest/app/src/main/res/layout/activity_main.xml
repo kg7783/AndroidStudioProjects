@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_main"
+        app:title="Multiplikations Training"
+        app:titleTextColor="@color/white"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textValue1"
+        android:layout_width="77dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:text="10"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/multi"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Main" />
+
+    <TextView
+        android:id="@+id/textValue2"
+        android:layout_width="77dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:text="10"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Main" />
+
+    <TextView
+        android:id="@+id/value_"
+        android:layout_width="77dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textValue2" />
+
+    <TextView
+        android:id="@+id/equals"
+        android:layout_width="40dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:text="="
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textValue2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Main" />
+
+    <TextView
+        android:id="@+id/multi"
+        android:layout_width="46dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:text="*"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textValue2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Main" />
+
+    <Button
+        android:id="@+id/btn_Check"
+        android:layout_width="151dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:onClick="onCheckResult"
+        android:text="Check"
+        app:layout_constraintStart_toEndOf="@+id/value_"
+        app:layout_constraintTop_toBottomOf="@+id/equals" />
+
+    <Button
+        android:id="@+id/btn_New"
+        android:layout_width="151dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onNewTask"
+        android:text="Neu"
+        app:layout_constraintEnd_toStartOf="@+id/value_"
+        app:layout_constraintTop_toBottomOf="@+id/textValue1" />
+
+    <EditText
+        android:id="@+id/editResult"
+        android:layout_width="125dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="100"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/equals"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Main" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
