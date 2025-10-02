@@ -2,6 +2,7 @@ package com.example.activitytest;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,15 +24,20 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
     private SettingsManager settingsManager;
 
     private final RandomUtils randomNumbers = new RandomUtils();
     ArrayList<Integer> allowedNumbers = new ArrayList<Integer>();
 
+    // Variable for multiplication
     private Integer taskValueMulti_1, taskValueMulti_2;
     private TextView textValueMulti_1, textValueMulti_2;
     private EditText editResultMulti;
+
+    // Variable for division
+    private Integer taskValueDiv_1, taskValueDiv_2;
+    private TextView textValueDiv_1, textValueDiv_2;
+    private EditText editResultDiv;
 
 
     @Override
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         // Without this, menu will not work
         Toolbar toolbar = findViewById(R.id.toolbar_Main);
         setSupportActionBar(toolbar);
@@ -61,9 +69,15 @@ public class MainActivity extends AppCompatActivity {
         // Erstelle eine Instanz des SettingsManagers
         settingsManager = new SettingsManager(this);
 
+        // Multiplication
         textValueMulti_1  = findViewById(R.id.textValueMulti_1);
         textValueMulti_2  = findViewById(R.id.textValueMulti_2);
         editResultMulti   = findViewById(R.id.editResultMulti);
+
+        // Division
+        textValueDiv_1  = findViewById(R.id.textValueDiv_1);
+        textValueDiv_2  = findViewById(R.id.textValueDiv_2);
+        editResultDiv   = findViewById(R.id.editResultDiv);
     }
 
     @Override
@@ -92,8 +106,11 @@ public class MainActivity extends AppCompatActivity {
 
         LoadSettings();
 
-        Init();
+        InitMultiplication();
+        InitDivision();
+
         createNewMultiplication();
+        createNewDivision();
     }
 
     @Override
@@ -177,10 +194,18 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivityTest", "Allowed numbers: " + allowedNumbers.toString());
     }
 
-    private void Init()
+    private void InitMultiplication()
     {
+        // Multiplication result
         editResultMulti.setBackgroundColor(Color.WHITE);
         editResultMulti.setText("");
+    }
+
+    private void InitDivision()
+    {
+        // Division result
+        editResultDiv.setBackgroundColor(Color.WHITE);
+        editResultDiv.setText("");
     }
     @SuppressLint("SetTextI18n")
     private void createNewMultiplication()
@@ -194,17 +219,17 @@ public class MainActivity extends AppCompatActivity {
         textValueMulti_2.setText(taskValueMulti_2.toString());
     }
 
-    public void onNewTask(android.view.View view)
+    public void onNewTaskMulti(android.view.View view)
     {
-        Log.d("MainActivityTest", "onNewTask");
+        Log.d("MainActivityTest", "onNewTaskMulti");
 
-        Init();
+        InitMultiplication();
         createNewMultiplication();
     }
 
-    public void onCheckResult(android.view.View view)
+    public void onCheckResultMulti(android.view.View view)
     {
-        Log.d("MainActivityTest", "onCheckResult");
+        Log.d("MainActivityTest", "onCheckResultMulti");
 
         int iResult = Integer.parseInt(editResultMulti.getText().toString());
         if (iResult == taskValueMulti_1 * taskValueMulti_2)
@@ -217,4 +242,37 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    private void createNewDivision()
+    {
+        // // Get random values
+        taskValueDiv_2 = randomNumbers.getRandomElementFromList(allowedNumbers);
+        taskValueDiv_1 = taskValueDiv_2 * randomNumbers.getRandomNumberInRange10();
+
+        textValueDiv_1.setText(Integer.toString((taskValueDiv_1)));
+        textValueDiv_2.setText(taskValueDiv_2.toString());
+    }
+
+    public void onNewTaskDiv(android.view.View view)
+    {
+        Log.d("MainActivityTest", "onNewTaskDiv");
+
+        InitDivision();
+        createNewDivision();;
+    }
+
+    public void onCheckResultDiv(android.view.View view)
+    {
+        Log.d("MainActivityTest", "onCheckResultDiv");
+
+        int iResult = Integer.parseInt(editResultDiv.getText().toString());
+        if (iResult == taskValueDiv_1 / taskValueDiv_2)
+        {
+            editResultDiv.setBackgroundColor(Color.GREEN);
+        }
+        else
+        {
+            editResultDiv.setBackgroundColor(Color.RED);
+        }
+    }
 }
