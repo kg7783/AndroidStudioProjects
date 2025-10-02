@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private final RandomUtils randomNumbers = new RandomUtils();
     ArrayList<Integer> allowedNumbers = new ArrayList<Integer>();
 
-    private Integer taskValue1, taskValue2;
-    private TextView textValue1, textValue2;
-    private EditText editResult;
+    private Integer taskValueMulti_1, taskValueMulti_2;
+    private TextView textValueMulti_1, textValueMulti_2;
+    private EditText editResultMulti;
 
 
     @Override
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         // Erstelle eine Instanz des SettingsManagers
         settingsManager = new SettingsManager(this);
 
-        textValue1  = findViewById(R.id.textValue1);
-        textValue2  = findViewById(R.id.textValue2);
-        editResult  = findViewById(R.id.editResult);
+        textValueMulti_1  = findViewById(R.id.textValueMulti_1);
+        textValueMulti_2  = findViewById(R.id.textValueMulti_2);
+        editResultMulti   = findViewById(R.id.editResultMulti);
     }
 
     @Override
@@ -179,19 +179,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void Init()
     {
-        editResult.setBackgroundColor(Color.WHITE);
-        editResult.setText("");
+        editResultMulti.setBackgroundColor(Color.WHITE);
+        editResultMulti.setText("");
     }
     @SuppressLint("SetTextI18n")
     private void createNewMultiplication()
     {
         // Get random value from range 0-10
-        taskValue1 = randomNumbers.getRandomNumberInRange10();
-        textValue1.setText(taskValue1.toString());
+        taskValueMulti_1 = randomNumbers.getRandomNumberInRange10();
+        textValueMulti_1.setText(taskValueMulti_1.toString());
 
         // Get random value from settings
-        taskValue2 = randomNumbers.getRandomElementFromList(allowedNumbers);
-        textValue2.setText(taskValue2.toString());
+        taskValueMulti_2 = randomNumbers.getRandomElementFromList(allowedNumbers);
+        textValueMulti_2.setText(taskValueMulti_2.toString());
     }
 
     public void onNewTask(android.view.View view)
@@ -206,14 +206,14 @@ public class MainActivity extends AppCompatActivity {
     {
         Log.d("MainActivityTest", "onCheckResult");
 
-        int iResult = Integer.parseInt(editResult.getText().toString());
-        if (iResult == taskValue1 * taskValue2)
+        int iResult = Integer.parseInt(editResultMulti.getText().toString());
+        if (iResult == taskValueMulti_1 * taskValueMulti_2)
         {
-            editResult.setBackgroundColor(Color.GREEN);
+            editResultMulti.setBackgroundColor(Color.GREEN);
         }
         else
         {
-            editResult.setBackgroundColor(Color.RED);
+            editResultMulti.setBackgroundColor(Color.RED);
         }
     }
 
