@@ -233,26 +233,11 @@ public class MainActivity extends AppCompatActivity {
     {
         Log.d("MainActivityTest", "onCheckResultMulti");
 
-        int iResult = Integer.parseInt(editResultMulti.getText().toString());
-        if (iResult == (taskValueMulti_1 * taskValueMulti_2))
+        checkResult(editResultMulti, taskValueMulti_1*taskValueMulti_2, () ->
         {
-            editResultMulti.setBackgroundColor(Color.GREEN);
-
-            // Automatically start new task after a few seconds
-            editResultMulti.postDelayed(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    InitMultiplication();
-                    createNewMultiplication();
-                }
-            }, 2000);
-        }
-        else
-        {
-            editResultMulti.setBackgroundColor(Color.RED);
-        }
+            InitMultiplication();;
+            createNewMultiplication();
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -278,31 +263,61 @@ public class MainActivity extends AppCompatActivity {
     {
         Log.d("MainActivityTest", "onCheckResultDiv");
 
-        int iResult = Integer.parseInt(editResultDiv.getText().toString());
-        if (iResult == (taskValueDiv_1 / taskValueDiv_2))
+        checkResult(editResultDiv, taskValueDiv_1/taskValueDiv_2, () ->
         {
-            editResultDiv.setBackgroundColor(Color.GREEN);
+            InitDivision();
+            createNewDivision();
+        });
+    }
+
+    private void checkResult(EditText editResult, int expectedResult, Runnable onSuccess)
+    {
+        String str = editResult.getText().toString();
+        if(str.isEmpty())
+        {
+            return;
+        }
+
+        int editTextResult = Integer.parseInt(str);
+        if(editTextResult == expectedResult)
+        {
+            editResult.setBackgroundColor(Color.GREEN);
 
             new CountDownTimer(1000, 1000)
             {
                 @Override
                 public void onTick(long millisUntilFinished)
                 {
-                     Log.d("MainActivityTest", "onTick");
+                    Log.d("MainActivityTest", "onTick");
                 }
                 @Override
                 public void onFinish()
                 {
                     Log.d("MainActivityTest", "onFinish");
 
-                    InitDivision();
-                    createNewDivision();
+                    if(onSuccess != null)
+                    {
+                        onSuccess.run();
+                    }
+
+/*
+                    if(editResult == editResultMulti)
+                    {
+                        InitMultiplication();;
+                        createNewMultiplication();;
+                    }
+                    else if(editResult == editResultDiv)
+                    {
+                        InitDivision();
+                        createNewDivision();
+                    }
+  */
                 }
             }.start();
         }
         else
         {
-            editResultDiv.setBackgroundColor(Color.RED);
+            editResult.setBackgroundColor(Color.RED);
         }
     }
 }
