@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editResultDiv;
 
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -232,9 +234,20 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivityTest", "onCheckResultMulti");
 
         int iResult = Integer.parseInt(editResultMulti.getText().toString());
-        if (iResult == taskValueMulti_1 * taskValueMulti_2)
+        if (iResult == (taskValueMulti_1 * taskValueMulti_2))
         {
             editResultMulti.setBackgroundColor(Color.GREEN);
+
+            // Automatically start new task after a few seconds
+            editResultMulti.postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    InitMultiplication();
+                    createNewMultiplication();
+                }
+            }, 2000);
         }
         else
         {
@@ -266,9 +279,26 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivityTest", "onCheckResultDiv");
 
         int iResult = Integer.parseInt(editResultDiv.getText().toString());
-        if (iResult == taskValueDiv_1 / taskValueDiv_2)
+        if (iResult == (taskValueDiv_1 / taskValueDiv_2))
         {
             editResultDiv.setBackgroundColor(Color.GREEN);
+
+            new CountDownTimer(1000, 1000)
+            {
+                @Override
+                public void onTick(long millisUntilFinished)
+                {
+                     Log.d("MainActivityTest", "onTick");
+                }
+                @Override
+                public void onFinish()
+                {
+                    Log.d("MainActivityTest", "onFinish");
+
+                    InitDivision();
+                    createNewDivision();
+                }
+            }.start();
         }
         else
         {
