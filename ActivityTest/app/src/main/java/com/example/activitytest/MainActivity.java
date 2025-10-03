@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private SettingsManager settingsManager;
 
     private final RandomUtils randomNumbers = new RandomUtils();
-    ArrayList<Integer> allowedNumbers = new ArrayList<Integer>();
+    ArrayList<Integer> allowedNumbers = new ArrayList<>();
 
+/*
     // Variable for multiplication
     private Integer taskValueMulti_1, taskValueMulti_2;
     private TextView textValueMulti_1, textValueMulti_2;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private Integer taskValueDiv_1, taskValueDiv_2;
     private TextView textValueDiv_1, textValueDiv_2;
     private EditText editResultDiv;
+*/
+
+    private MultiplicationStrategy multiplicationStrategy;
+    private DivisionStrategy divisionStrategy;;
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -71,15 +76,28 @@ public class MainActivity extends AppCompatActivity {
         // Erstelle eine Instanz des SettingsManagers
         settingsManager = new SettingsManager(this);
 
-        // Multiplication
-        textValueMulti_1  = findViewById(R.id.textValueMulti_1);
-        textValueMulti_2  = findViewById(R.id.textValueMulti_2);
-        editResultMulti   = findViewById(R.id.editResultMulti);
+        // UI-Komponenten für Multiplikation holen
+        TextView textValueMulti_1  = findViewById(R.id.textValueMulti_1);
+        TextView textValueMulti_2  = findViewById(R.id.textValueMulti_2);
+        EditText editResultMulti   = findViewById(R.id.editResultMulti);
 
-        // Division
-        textValueDiv_1  = findViewById(R.id.textValueDiv_1);
-        textValueDiv_2  = findViewById(R.id.textValueDiv_2);
-        editResultDiv   = findViewById(R.id.editResultDiv);
+        // UI-Komponenten für Division holen
+        TextView textValueDiv_1  = findViewById(R.id.textValueDiv_1);
+        TextView textValueDiv_2  = findViewById(R.id.textValueDiv_2);
+        EditText editResultDiv   = findViewById(R.id.editResultDiv);
+
+        // Strategie-Objekte instanziieren
+        multiplicationStrategy = new MultiplicationStrategy(textValueMulti_1,
+                                                            textValueMulti_2,
+                                                            editResultMulti,
+                                                            randomNumbers,
+                                                            allowedNumbers);
+
+        divisionStrategy = new DivisionStrategy(textValueDiv_1,
+                                                textValueDiv_2,
+                                                editResultDiv,
+                                                randomNumbers,
+                                                allowedNumbers);
     }
 
     @Override
@@ -108,11 +126,12 @@ public class MainActivity extends AppCompatActivity {
 
         LoadSettings();
 
-        InitMultiplication();
-        InitDivision();
+        // Initialisiere die Aufgabenüber die Strategien
+        multiplicationStrategy.initTaskView();
+        multiplicationStrategy.createNewTask();
 
-        createNewMultiplication();
-        createNewDivision();
+        divisionStrategy.initTaskView();
+        divisionStrategy.createNewTask();
     }
 
     @Override
@@ -144,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy()
+    {
         super.onDestroy();
         Log.d("MainActivityTest", "onDestroy");
     }
@@ -196,90 +216,54 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivityTest", "Allowed numbers: " + allowedNumbers.toString());
     }
 
-    private void InitMultiplication()
-    {
-        // Multiplication result
-        editResultMulti.setBackgroundColor(Color.WHITE);
-        editResultMulti.setText("");
-    }
-
-    private void InitDivision()
-    {
-        // Division result
-        editResultDiv.setBackgroundColor(Color.WHITE);
-        editResultDiv.setText("");
-    }
-    @SuppressLint("SetTextI18n")
-    private void createNewMultiplication()
-    {
-        // Get random value from range 0-10
-        taskValueMulti_1 = randomNumbers.getRandomNumberInRange10();
-        textValueMulti_1.setText(taskValueMulti_1.toString());
-
-        // Get random value from settings
-        taskValueMulti_2 = randomNumbers.getRandomElementFromList(allowedNumbers);
-        textValueMulti_2.setText(taskValueMulti_2.toString());
-    }
-
     public void onNewTaskMulti(android.view.View view)
     {
         Log.d("MainActivityTest", "onNewTaskMulti");
 
-        InitMultiplication();
-        createNewMultiplication();
+        multiplicationStrategy.initTaskView();
+        multiplicationStrategy.createNewTask();
     }
-
     public void onCheckResultMulti(android.view.View view)
     {
         Log.d("MainActivityTest", "onCheckResultMulti");
 
-        checkResult(editResultMulti, taskValueMulti_1*taskValueMulti_2, () ->
+        checkResult(findViewById(R.id.editResultMulti), multiplicationStrategy, () ->
         {
-            InitMultiplication();;
-            createNewMultiplication();
+            multiplicationStrategy.initTaskView();
+            multiplicationStrategy.createNewTask();
         });
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void createNewDivision()
-    {
-        // // Get random values
-        taskValueDiv_2 = randomNumbers.getRandomElementFromList(allowedNumbers);
-        taskValueDiv_1 = taskValueDiv_2 * randomNumbers.getRandomNumberInRange10();
-
-        textValueDiv_1.setText(Integer.toString((taskValueDiv_1)));
-        textValueDiv_2.setText(taskValueDiv_2.toString());
     }
 
     public void onNewTaskDiv(android.view.View view)
     {
         Log.d("MainActivityTest", "onNewTaskDiv");
 
-        InitDivision();
-        createNewDivision();;
+        divisionStrategy.initTaskView();
+        divisionStrategy.createNewTask();
     }
 
     public void onCheckResultDiv(android.view.View view)
     {
         Log.d("MainActivityTest", "onCheckResultDiv");
 
-        checkResult(editResultDiv, taskValueDiv_1/taskValueDiv_2, () ->
+        checkResult(findViewById(R.id.editResultDiv), divisionStrategy, () ->
         {
-            InitDivision();
-            createNewDivision();
+            divisionStrategy.initTaskView();
+            divisionStrategy.createNewTask();
         });
     }
 
-    private void checkResult(EditText editResult, int expectedResult, Runnable onSuccess)
+    private void checkResult(EditText editResult, BaseCalculationStrategy strategy, Runnable onSuccess)
     {
         String str = editResult.getText().toString();
         if(str.isEmpty())
         {
+            editResult.setBackgroundColor(Color.RED);
             return;
         }
 
         int editTextResult = Integer.parseInt(str);
-        if(editTextResult == expectedResult)
+        if(editTextResult == strategy.getExpectedResult())
         {
             editResult.setBackgroundColor(Color.GREEN);
 
@@ -299,19 +283,6 @@ public class MainActivity extends AppCompatActivity {
                     {
                         onSuccess.run();
                     }
-
-/*
-                    if(editResult == editResultMulti)
-                    {
-                        InitMultiplication();;
-                        createNewMultiplication();;
-                    }
-                    else if(editResult == editResultDiv)
-                    {
-                        InitDivision();
-                        createNewDivision();
-                    }
-  */
                 }
             }.start();
         }
