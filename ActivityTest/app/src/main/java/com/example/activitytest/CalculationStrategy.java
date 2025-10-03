@@ -3,18 +3,15 @@ package com.example.activitytest;
 public interface CalculationStrategy
 {
     /**
-     * Erstellt eine neue Rechenaufgabe und zeigt sie in den TextViews an.
+     * Erstellt eine neue Rechenaufgabe und gibt die Werte zurück.
+     * @return Ein CalculationTask-Objekt mit den neuen Werten.
      */
-    void createNewTask();
+    CalculationTask createNewTask();
 
     /**
-     * Initialisiert die UI-Komponenten für eine neue Runde (z.B. Hintergrundfarbe zurücksetzen).
+     * Berechnet das erwartete Ergebnis basierend auf den übergebenen Werten.
+     * @param task Die aktuelle Aufgabe mit value1 und value2.
+     * @return Das korrekte Ergebnis der Berechnung.
      */
-    void initTaskView();
-
-    /**
-     * Gibt das erwartete korrekte Ergebnis der aktuellen Aufgabe zurück.
-     * @return Das Ergebnis der Berechnung.
-     */
-    int getExpectedResult();
+    int getExpectedResult(CalculationTask task);
 }

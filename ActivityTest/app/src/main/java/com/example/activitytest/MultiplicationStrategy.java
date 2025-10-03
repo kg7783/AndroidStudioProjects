@@ -6,37 +6,24 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MultiplicationStrategy extends BaseCalculationStrategy
+public class MultiplicationStrategy extends AbstractCalculationStrategy
 {
-    public MultiplicationStrategy(TextView textValue1,
-                                  TextView textValue2,
-                                  EditText editResult,
-                                  RandomUtils randomNumbers,
-                                  ArrayList<Integer> allowedNumbers)
+    public MultiplicationStrategy(RandomUtils randomNumbers, ArrayList<Integer> allowedNumbers)
     {
-        super(textValue1, textValue2, editResult, randomNumbers, allowedNumbers);
+        super(randomNumbers, allowedNumbers);
     }
 
     @Override
-    public void createNewTask()
+    public CalculationTask createNewTask()
     {
-        taskValue1 = randomNumbers.getRandomNumberInRange10();
-        taskValue2 = randomNumbers.getRandomElementFromList(allowedNumbers);
-
-        textValue1.setText(String.valueOf(taskValue1));
-        textValue2.setText(String.valueOf(taskValue2));
+        int value1 = randomNumbers.getRandomNumberInRange10();
+        int Value2 = randomNumbers.getRandomElementFromList(allowedNumbers);
+        return new CalculationTask(value1, Value2);
     }
 
     @Override
-    public void initTaskView()
+    public int getExpectedResult(CalculationTask task)
     {
-        editResult.setBackgroundColor(Color.WHITE);
-        editResult.setText("");
-    }
-
-    @Override
-    public int getExpectedResult()
-    {
-        return taskValue1*taskValue2;
+        return task.getValue1() * task.getValue2();
     }
 }

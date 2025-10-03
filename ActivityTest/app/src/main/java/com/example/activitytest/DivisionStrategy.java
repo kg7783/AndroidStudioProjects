@@ -6,43 +6,29 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class DivisionStrategy extends BaseCalculationStrategy
+public class DivisionStrategy extends AbstractCalculationStrategy
 {
-    public DivisionStrategy(TextView textValue1,
-                            TextView textValue2,
-                            EditText editResult,
-                            RandomUtils randomNumbers,
-                            ArrayList<Integer> allowedNumbers)
+    public DivisionStrategy(RandomUtils randomNumbers, ArrayList<Integer> allowedNumbers)
     {
-        super(textValue1, textValue2, editResult, randomNumbers, allowedNumbers);
+        super(randomNumbers, allowedNumbers);
     }
 
     @Override
-    public void createNewTask()
+    public CalculationTask createNewTask()
     {
-        taskValue2 = randomNumbers.getRandomElementFromList(allowedNumbers);
+        int value2 = randomNumbers.getRandomElementFromList(allowedNumbers);
         // Sicherstellen, dass die Division immer eine ganze Zahl ergibt
-        taskValue1 = taskValue2 * randomNumbers.getRandomNumberInRange10();
-
-        textValue1.setText(String.valueOf(taskValue1));
-        textValue2.setText(String.valueOf(taskValue2));
+        int value1 = value2 * randomNumbers.getRandomNumberInRange10();
+        return new CalculationTask(value1, value2);
     }
-
     @Override
-    public void initTaskView()
+    public int getExpectedResult(CalculationTask task)
     {
-        editResult.setBackgroundColor(Color.WHITE);
-        editResult.setText("");
-    }
-
-    @Override
-    public int getExpectedResult()
-    {
-        if(taskValue2 == 0)
+        if(createNewTask().getValue2() == 0)
         {
             return 0;
         }
 
-        return taskValue1/taskValue2;
+        return task.getValue1() / task.getValue2();
     }
 }

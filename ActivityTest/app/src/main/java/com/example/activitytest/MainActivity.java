@@ -9,6 +9,8 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,35 +22,27 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
+    private CalculationViewModel viewModel;
     private SettingsManager settingsManager;
 
-    private final RandomUtils randomNumbers = new RandomUtils();
-    ArrayList<Integer> allowedNumbers = new ArrayList<>();
-
-/*
-    // Variable for multiplication
-    private Integer taskValueMulti_1, taskValueMulti_2;
+    // UI-Komponenten
     private TextView textValueMulti_1, textValueMulti_2;
     private EditText editResultMulti;
-
-    // Variable for division
-    private Integer taskValueDiv_1, taskValueDiv_2;
     private TextView textValueDiv_1, textValueDiv_2;
     private EditText editResultDiv;
-*/
-
-    private MultiplicationStrategy multiplicationStrategy;
-    private DivisionStrategy divisionStrategy;;
-
+    private Animation pulsateAnimation; // Animations-Objekt
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         Log.d("MainActivityTest", "onCreate");
 
@@ -67,37 +61,95 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_Main);
         setSupportActionBar(toolbar);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) ->
+        {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Erstelle eine Instanz des SettingsManagers
+        // ViewModel holen - dies überlebt Konfigurationsänderungen
+        viewModel = new ViewModelProvider(this).get(CalculationViewModel.class);
+
+        setupToolbarAndInsets();
+
         settingsManager = new SettingsManager(this);
 
-        // UI-Komponenten für Multiplikation holen
-        TextView textValueMulti_1  = findViewById(R.id.textValueMulti_1);
-        TextView textValueMulti_2  = findViewById(R.id.textValueMulti_2);
-        EditText editResultMulti   = findViewById(R.id.editResultMulti);
+        // Lade die Animation einmalig in onCreate
+        pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulsate_animation);
 
-        // UI-Komponenten für Division holen
-        TextView textValueDiv_1  = findViewById(R.id.textValueDiv_1);
-        TextView textValueDiv_2  = findViewById(R.id.textValueDiv_2);
-        EditText editResultDiv   = findViewById(R.id.editResultDiv);
+        initializeViews();
 
-        // Strategie-Objekte instanziieren
-        multiplicationStrategy = new MultiplicationStrategy(textValueMulti_1,
-                                                            textValueMulti_2,
-                                                            editResultMulti,
-                                                            randomNumbers,
-                                                            allowedNumbers);
+        setupObservers();
+    }
 
-        divisionStrategy = new DivisionStrategy(textValueDiv_1,
-                                                textValueDiv_2,
-                                                editResultDiv,
-                                                randomNumbers,
-                                                allowedNumbers);
+    private void setupToolbarAndInsets()
+    {
+        Toolbar toolbar = findViewById(R.id.toolbar_Main);
+        setSupportActionBar(toolbar);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+
+    private void initializeViews()
+    {
+        textValueMulti_1    = findViewById(R.id.textValueMulti_1);
+        textValueMulti_2    = findViewById(R.id.textValueMulti_2);
+        editResultMulti     = findViewById(R.id.editResultMulti);
+
+        textValueDiv_1      = findViewById(R.id.textValueDiv_1);
+        textValueDiv_2      = findViewById(R.id.textValueDiv_2);
+        editResultDiv       = findViewById(R.id.editResultDiv);
+    }
+
+    // Hier wird die Verbindung zwischen ViewModel und View hergestellt
+    private void setupObservers()
+    {
+        // Beobachter für die Multiplikations-UI
+        viewModel.multiplicationState.observe(this, state ->
+        {
+            Log.d("Observer", "Updating multiplication UI");
+            textValueMulti_1.setText(state.getValue1());
+            textValueMulti_2.setText(state.getValue2());
+            // Nur aktualisieren, wenn es nicht im Fokus ist, um den Cursor zu schützen
+            if (!editResultMulti.isFocused())
+            {
+                editResultMulti.setText(state.getResultText());
+            }
+            editResultMulti.setBackgroundColor(state.getResultBackgroundColor());
+
+            // NEU: Animation starten, falls getriggert
+            if (state.shouldTriggerSuccessAnimation())
+            {
+                editResultMulti.startAnimation(pulsateAnimation);
+                // Informiere das ViewModel, dass das Event verarbeitet wurde.
+                viewModel.onAnimationComplete(true);
+            }
+        });
+
+        // Beobachter für die Divisions-UI
+        viewModel.divisionState.observe(this, state ->
+        {
+            Log.d("Observer", "Updating division UI");
+            textValueDiv_1.setText(state.getValue1());
+            textValueDiv_2.setText(state.getValue2());
+            if (!editResultDiv.isFocused())
+            {
+                editResultDiv.setText(state.getResultText());
+            }
+            editResultDiv.setBackgroundColor(state.getResultBackgroundColor());
+
+            // NEU: Animation starten, falls getriggert
+            if (state.shouldTriggerSuccessAnimation())
+            {
+                editResultDiv.startAnimation(pulsateAnimation);
+                // Informiere das ViewModel, dass das Event verarbeitet wurde.
+                viewModel.onAnimationComplete(false);
+            }
+        });
     }
 
     @Override
@@ -125,13 +177,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivityTest", "onStart");
 
         LoadSettings();
-
-        // Initialisiere die Aufgabenüber die Strategien
-        multiplicationStrategy.initTaskView();
-        multiplicationStrategy.createNewTask();
-
-        divisionStrategy.initTaskView();
-        divisionStrategy.createNewTask();
     }
 
     @Override
@@ -196,22 +241,8 @@ public class MainActivity extends AppCompatActivity {
     {
         Log.d("MainActivityTest", "LoadSettings");
 
-        allowedNumbers.clear();
-
-        // Create an array of the resource IDs for easier looping
-        int[] switchIds = {
-                R.id.switch1, R.id.switch2, R.id.switch3, R.id.switch4, R.id.switch5,
-                R.id.switch6, R.id.switch7, R.id.switch8, R.id.switch9, R.id.switch10
-        };
-
-        for (int i = 0; i < SettingsActivity.NUMBER_OF_SWITCHES; i++)
-        {
-            boolean isChecked = settingsManager.loadSwitchState(i + 1);
-            if(isChecked)
-            {
-                allowedNumbers.add(i+1);
-            }
-        }
+        ArrayList<Integer> allowedNumbers = settingsManager.loadSettings();
+        viewModel.setAllowedNumbers(allowedNumbers);
 
         Log.d("MainActivityTest", "Allowed numbers: " + allowedNumbers.toString());
     }
@@ -220,75 +251,26 @@ public class MainActivity extends AppCompatActivity {
     {
         Log.d("MainActivityTest", "onNewTaskMulti");
 
-        multiplicationStrategy.initTaskView();
-        multiplicationStrategy.createNewTask();
+        viewModel.createNewMultiplicationTask();
     }
     public void onCheckResultMulti(android.view.View view)
     {
         Log.d("MainActivityTest", "onCheckResultMulti");
 
-        checkResult(findViewById(R.id.editResultMulti), multiplicationStrategy, () ->
-        {
-            multiplicationStrategy.initTaskView();
-            multiplicationStrategy.createNewTask();
-        });
+        viewModel.checkMultiplicationResult(editResultMulti.getText().toString());
     }
 
     public void onNewTaskDiv(android.view.View view)
     {
         Log.d("MainActivityTest", "onNewTaskDiv");
 
-        divisionStrategy.initTaskView();
-        divisionStrategy.createNewTask();
+        viewModel.createNewDivisionTask();
     }
 
     public void onCheckResultDiv(android.view.View view)
     {
         Log.d("MainActivityTest", "onCheckResultDiv");
 
-        checkResult(findViewById(R.id.editResultDiv), divisionStrategy, () ->
-        {
-            divisionStrategy.initTaskView();
-            divisionStrategy.createNewTask();
-        });
-    }
-
-    private void checkResult(EditText editResult, BaseCalculationStrategy strategy, Runnable onSuccess)
-    {
-        String str = editResult.getText().toString();
-        if(str.isEmpty())
-        {
-            editResult.setBackgroundColor(Color.RED);
-            return;
-        }
-
-        int editTextResult = Integer.parseInt(str);
-        if(editTextResult == strategy.getExpectedResult())
-        {
-            editResult.setBackgroundColor(Color.GREEN);
-
-            new CountDownTimer(1000, 1000)
-            {
-                @Override
-                public void onTick(long millisUntilFinished)
-                {
-                    Log.d("MainActivityTest", "onTick");
-                }
-                @Override
-                public void onFinish()
-                {
-                    Log.d("MainActivityTest", "onFinish");
-
-                    if(onSuccess != null)
-                    {
-                        onSuccess.run();
-                    }
-                }
-            }.start();
-        }
-        else
-        {
-            editResult.setBackgroundColor(Color.RED);
-        }
+        viewModel.checkDivisionResult(editResultDiv.getText().toString());
     }
 }

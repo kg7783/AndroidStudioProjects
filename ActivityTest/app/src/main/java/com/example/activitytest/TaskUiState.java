@@ -1,0 +1,59 @@
+package com.example.activitytest;
+
+import android.graphics.Color;
+
+public class TaskUiState
+{
+    private final String value1;
+    private final String value2;
+    private final String resultText;
+    private final int resultBackgroundColor;
+    private final boolean triggerSuccessAnimation;
+
+    public TaskUiState(String value1,
+                       String value2,
+                       String resultText,
+                       int resultBackgroundColor,
+                       boolean triggerSuccessAnimation)
+    {
+        this.value1                  = value1;
+        this.value2                  = value2;
+        this.resultText              = resultText;
+        this.resultBackgroundColor   = resultBackgroundColor;
+        this.triggerSuccessAnimation = triggerSuccessAnimation;
+    }
+
+    // Standard-Initialzustand
+    public TaskUiState()
+    {
+        this.value1 = "0";
+        this.value2 = "0";
+        this.resultText = "";
+        this.resultBackgroundColor = Color.WHITE;
+        this.triggerSuccessAnimation = false;
+    }
+
+    public String getValue1() { return value1; }
+    public String getValue2() { return value2; }
+    public String getResultText() { return resultText; }
+    public int getResultBackgroundColor() { return resultBackgroundColor; }
+    public boolean shouldTriggerSuccessAnimation() { return triggerSuccessAnimation; }
+
+    // HIER IST DIE FEHLENDE METHODE
+    /**
+     * Erstellt eine exakte Kopie des aktuellen Zustands, setzt aber den
+     * Animations-Trigger gezielt auf 'false'.
+     * Dies wird verwendet, um das Animations-Event als "verbraucht" zu markieren.
+     * @return Ein neues TaskUiState-Objekt.
+     */
+    public TaskUiState copyWithAnimationConsumed()
+    {
+        return new TaskUiState(
+                this.value1,
+                this.value2,
+                this.resultText,
+                this.resultBackgroundColor,
+                false // <-- Das ist der entscheidende Punkt
+        );
+    }
+}
