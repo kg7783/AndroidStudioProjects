@@ -1,9 +1,5 @@
 package com.example.activitytest;
 
-import android.graphics.Color;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class DivisionStrategy extends AbstractCalculationStrategy

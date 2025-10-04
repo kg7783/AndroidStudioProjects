@@ -20,13 +20,25 @@ public class CalculationViewModel extends ViewModel
     private final CalculationStrategy multiplicationStrategy;
     private final CalculationStrategy divisionStrategy;
 
-    // LiveData für den UI-Zustand der Multiplikationsaufgabe
+    /// LiveData für den UI-Zustand der Multiplikationsaufgabe /////////////////////////////////////
+    // Der private "Stadionsprecher", der den Wert ändern darf => interner, veränderbarer Datenhalter
+    // private: nur das ViewModel selbst kann Werte ändern
     private final MutableLiveData<TaskUiState> _multiplicationState = new MutableLiveData<>(new TaskUiState());
-    public final LiveData<TaskUiState> multiplicationState = _multiplicationState;
 
-    // LiveData für den UI-Zustand der Divisionsaufgabe
+    // Die öffentliche "Anzeigetafel" die nur gelesen werden kann
+    // public: MainActivity kann die Daten beobachten, ohne sie versehentlich zu verändern
+    public final LiveData<TaskUiState> multiplicationState = _multiplicationState;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// LiveData für den UI-Zustand der Divisionsaufgabe ///////////////////////////////////////////
+    // Der private "Stadionsprecher", der den Wert ändern darf => interner, veränderbarer Datenhalter
+    // private: nur das ViewModel selbst kann Werte ändern
     private final MutableLiveData<TaskUiState> _divisionState = new MutableLiveData<>(new TaskUiState());
+
+    // Die öffentliche "Anzeigetafel" die nur gelesen werden kann
+    // public: MainActivity kann die Daten beobachten, ohne sie versehentlich zu verändern
     public final LiveData<TaskUiState> divisionState = _divisionState;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Interne Speicherung der aktuellen Aufgabe
     private CalculationTask currentMultiplicationTask;
@@ -54,7 +66,8 @@ public class CalculationViewModel extends ViewModel
     public void createNewMultiplicationTask()
     {
         currentMultiplicationTask = multiplicationStrategy.createNewTask();
-        _multiplicationState.setValue(new TaskUiState(
+        _multiplicationState.setValue(new TaskUiState
+        (
                 String.valueOf(currentMultiplicationTask.getValue1()),
                 String.valueOf(currentMultiplicationTask.getValue2()),
                 "",
@@ -65,7 +78,11 @@ public class CalculationViewModel extends ViewModel
 
     public void checkMultiplicationResult(String userInput)
     {
-        checkResult(userInput, currentMultiplicationTask, multiplicationStrategy, _multiplicationState, this::createNewMultiplicationTask);
+        checkResult(userInput,
+                    currentMultiplicationTask,
+                    multiplicationStrategy,
+                    _multiplicationState,
+                    this::createNewMultiplicationTask);
     }
 
     // --- Public Methods for Division ---
@@ -73,7 +90,8 @@ public class CalculationViewModel extends ViewModel
     public void createNewDivisionTask()
     {
         currentDivisionTask = divisionStrategy.createNewTask();
-        _divisionState.setValue(new TaskUiState(
+        _divisionState.setValue(new TaskUiState
+        (
                 String.valueOf(currentDivisionTask.getValue1()),
                 String.valueOf(currentDivisionTask.getValue2()),
                 "",
@@ -138,7 +156,10 @@ public class CalculationViewModel extends ViewModel
                                       CalculationTask task,
                                       String currentInput)
     {
-        state.setValue(new TaskUiState(
+        // Stadionsprecher: "Achtung, neuer Spielstand"
+        // Neuen "Notizzettel" mit korrekten Werten erzeugen und dem Stadionsprecher übergeben
+        state.setValue(new TaskUiState
+        (
                 String.valueOf(task.getValue1()),
                 String.valueOf(task.getValue2()),
                 currentInput,
@@ -151,7 +172,8 @@ public class CalculationViewModel extends ViewModel
                                         CalculationTask task,
                                         String currentInput)
     {
-        state.setValue(new TaskUiState(
+        state.setValue(new TaskUiState
+        (
                 String.valueOf(task.getValue1()),
                 String.valueOf(task.getValue2()),
                 currentInput,

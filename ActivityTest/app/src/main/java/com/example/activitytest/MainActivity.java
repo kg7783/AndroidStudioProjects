@@ -3,9 +3,7 @@ package com.example.activitytest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
@@ -108,46 +107,60 @@ public class MainActivity extends AppCompatActivity
     // Hier wird die Verbindung zwischen ViewModel und View hergestellt
     private void setupObservers()
     {
+        // Beobachter für die Multiplikations-UI einrichten
+        observeTaskState(
+                viewModel.multiplicationState,
+                textValueMulti_1,
+                textValueMulti_2,
+                editResultMulti,
+                true  // Flag, um die Multiplikation zu identifizieren
+        );
+
+        // Beobachter für die Divisions-UI einrichten
+        observeTaskState(
+                viewModel.divisionState,
+                textValueDiv_1,
+                textValueDiv_2,
+                editResultDiv,
+                false // Flag, um die Division zu identifizieren
+        );
+    }
+
+    private void observeTaskState(
+                LiveData<TaskUiState> stateLiveData,
+                TextView textValue1,
+                TextView textValue2,
+                EditText editResult,
+                boolean isMultiplicationTask)
+    {
+        // "Hey Anzeigetafel, sag mir immer Bescheid, wenn sich bei Multiplikation was ändert"
         // Beobachter für die Multiplikations-UI
-        viewModel.multiplicationState.observe(this, state ->
+        stateLiveData.observe(this, state ->
         {
-            Log.d("Observer", "Updating multiplication UI");
-            textValueMulti_1.setText(state.getValue1());
-            textValueMulti_2.setText(state.getValue2());
-            // Nur aktualisieren, wenn es nicht im Fokus ist, um den Cursor zu schützen
-            if (!editResultMulti.isFocused())
-            {
-                editResultMulti.setText(state.getResultText());
-            }
-            editResultMulti.setBackgroundColor(state.getResultBackgroundColor());
+            // Dieser Code wird JEDES MAL ausgeführt, wenn der Stadionsprecher etwas Neues sagt.
+            // state ist hier der neue "Notizzettel" (TaskUiState)
 
-            // NEU: Animation starten, falls getriggert
+            Log.d("Observer", "Updating UI for " + (isMultiplicationTask ? "multiplication" : "division"));
+
+            // 1. Die Zahlenwerte aktualisieren
+            textValue1.setText(state.getValue1());
+            textValue2.setText(state.getValue2());
+
+            // 2. Den Eingabetext aktualisieren (Cursor schützen)
+            if (!editResult.isFocused())
+            {
+                editResult.setText(state.getResultText());
+            }
+
+            // 3. Die Hintergrundfarbe setzen
+            editResult.setBackgroundColor(state.getResultBackgroundColor());
+
+            // 4. Die Animation bei Erfolg auslösen
             if (state.shouldTriggerSuccessAnimation())
             {
-                editResultMulti.startAnimation(pulsateAnimation);
-                // Informiere das ViewModel, dass das Event verarbeitet wurde.
-                viewModel.onAnimationComplete(true);
-            }
-        });
-
-        // Beobachter für die Divisions-UI
-        viewModel.divisionState.observe(this, state ->
-        {
-            Log.d("Observer", "Updating division UI");
-            textValueDiv_1.setText(state.getValue1());
-            textValueDiv_2.setText(state.getValue2());
-            if (!editResultDiv.isFocused())
-            {
-                editResultDiv.setText(state.getResultText());
-            }
-            editResultDiv.setBackgroundColor(state.getResultBackgroundColor());
-
-            // NEU: Animation starten, falls getriggert
-            if (state.shouldTriggerSuccessAnimation())
-            {
-                editResultDiv.startAnimation(pulsateAnimation);
-                // Informiere das ViewModel, dass das Event verarbeitet wurde.
-                viewModel.onAnimationComplete(false);
+                editResult.startAnimation(pulsateAnimation);
+                // Das ViewModel informieren, dass das Event verarbeitet wurde
+                viewModel.onAnimationComplete(isMultiplicationTask);
             }
         });
     }
