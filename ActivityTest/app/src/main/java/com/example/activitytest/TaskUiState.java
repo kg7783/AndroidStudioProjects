@@ -10,13 +10,15 @@ public class TaskUiState
     private final int resultBackgroundColor;
     private final boolean triggerSuccessAnimation;
     private final boolean triggerErrorAnimation;
+    private final boolean requestFocus;
 
     public TaskUiState(String value1,
                        String value2,
                        String resultText,
                        int resultBackgroundColor,
                        boolean triggerSuccessAnimation,
-                       boolean triggerErrorAnimation)
+                       boolean triggerErrorAnimation,
+                       boolean requestFocus)
     {
         this.value1                  = value1;
         this.value2                  = value2;
@@ -24,6 +26,7 @@ public class TaskUiState
         this.resultBackgroundColor   = resultBackgroundColor;
         this.triggerSuccessAnimation = triggerSuccessAnimation;
         this.triggerErrorAnimation   = triggerErrorAnimation;
+        this.requestFocus            = requestFocus;
     }
 
     // Standard-Initialzustand
@@ -35,6 +38,7 @@ public class TaskUiState
         this.resultBackgroundColor = Color.WHITE;
         this.triggerSuccessAnimation = false;
         this.triggerErrorAnimation = false;
+        this.requestFocus = false;
     }
 
     public String getValue1() { return value1; }
@@ -43,6 +47,7 @@ public class TaskUiState
     public int getResultBackgroundColor() { return resultBackgroundColor; }
     public boolean shouldTriggerSuccessAnimation() { return triggerSuccessAnimation; }
     public boolean shouldTriggerErrorAnimation() { return triggerErrorAnimation; }
+    public boolean shouldRequestFocus() { return requestFocus; }
 
     // HIER IST DIE FEHLENDE METHODE
     /**
@@ -58,6 +63,7 @@ public class TaskUiState
                 this.value2,
                 this.resultText,
                 this.resultBackgroundColor,
+                false,
                 false,
                 false
         );

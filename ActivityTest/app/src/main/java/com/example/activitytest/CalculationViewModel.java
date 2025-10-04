@@ -61,7 +61,8 @@ public class CalculationViewModel extends ViewModel
 
         multiplicationStrategy = new MultiplicationStrategy(randomNumbers, allowedNumbers);
         divisionStrategy = new DivisionStrategy(randomNumbers, allowedNumbers);
-//        Log.d("ViewModel", "ViewModel created");
+
+        Log.d("ViewModel", "ViewModel created");
     }
 
     public void setAllowedNumbers(ArrayList<Integer> numbers)
@@ -86,7 +87,8 @@ public class CalculationViewModel extends ViewModel
                 "",
                 Color.WHITE,
                 false,
-                false
+                false,
+                true
         ));
     }
 
@@ -111,7 +113,8 @@ public class CalculationViewModel extends ViewModel
                 "",
                 Color.WHITE,
                 false,
-                false
+                false,
+                true
         ));
     }
 
@@ -187,7 +190,8 @@ public class CalculationViewModel extends ViewModel
                 currentInput,
                 Color.RED,
                 false,
-                true
+                true,
+                false
         ));
     }
 
@@ -202,6 +206,7 @@ public class CalculationViewModel extends ViewModel
                 currentInput,
                 Color.GREEN,
                 true,
+                false,
                 false
         ));
     }
@@ -225,6 +230,24 @@ public class CalculationViewModel extends ViewModel
             {
                 _divisionState.setValue(currentState.copyWithAnimationConsumed());
             }
+        }
+    }
+
+    // WICHTIG: Setzen Sie den Fokus-Request wieder auf false, nachdem er einmal verarbeitet wurde
+    public void onFocusRequested()
+    {
+        TaskUiState currentState = _multiplicationState.getValue();
+        if (currentState != null && currentState.shouldRequestFocus())
+        {
+            _multiplicationState.setValue(new TaskUiState(
+                    currentState.getValue1(),
+                    currentState.getValue2(),
+                    currentState.getResultText(),
+                    currentState.getResultBackgroundColor(),
+                    false, // successful animation nicht erneut auslösen
+                    false, // error animation nicht erneut auslösen
+                    false // Fokus-Request zurücksetzen
+            ));
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.activitytest;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -195,6 +197,23 @@ public class MainActivity extends AppCompatActivity
                 viewModel.onAnimationComplete(isMultiplicationTask);
             }
 
+            // 5. FOKUS SETZEN UND TASTATUR ÖFFNEN (NEU)
+            if (state.shouldRequestFocus())
+            {
+                // Fordere den Fokus für das EditText-Feld an.
+                editResult.requestFocus();
+
+                // Hole den InputMethodManager, um die Tastatur zu steuern.
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null)
+                {
+                    // Zeige die Tastatur für das fokussierte Feld an.
+                    imm.showSoftInput(editResult, InputMethodManager.SHOW_IMPLICIT);
+                }
+
+                // Sage dem ViewModel, dass wir die Aktion ausgeführt haben.
+                viewModel.onFocusRequested();
+            }
         });
     }
 
