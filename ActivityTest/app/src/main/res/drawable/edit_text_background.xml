@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layer-List erlaubt uns, mehrere Drawables übereinander zu stapeln --><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Schicht 1: Die Füllfarbe (UNTERE SCHICHT) -->
+    <!-- Wir geben ihr eine ID, damit wir sie im Java-Code finden und ihre Farbe ändern können. -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:id="@+id/background_fill" android:color="@android:color/white" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Schicht 2: Der Rahmen (OBERE SCHICHT) -->
+    <!-- Dieser wird über die Füllfarbe gezeichnet. -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Die Füllung dieser Schicht ist transparent, damit die untere Schicht durchscheint -->
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="2dp" android:color="#808080" /> <!-- Der graue Rahmen -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</layer-list>

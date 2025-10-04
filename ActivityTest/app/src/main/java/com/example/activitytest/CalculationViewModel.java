@@ -85,6 +85,7 @@ public class CalculationViewModel extends ViewModel
                 String.valueOf(currentMultiplicationTask.getValue2()),
                 "",
                 Color.WHITE,
+                false,
                 false
         ));
     }
@@ -109,6 +110,7 @@ public class CalculationViewModel extends ViewModel
                 String.valueOf(currentDivisionTask.getValue2()),
                 "",
                 Color.WHITE,
+                false,
                 false
         ));
     }
@@ -184,7 +186,8 @@ public class CalculationViewModel extends ViewModel
                 String.valueOf(task.getValue2()),
                 currentInput,
                 Color.RED,
-                false
+                false,
+                true
         ));
     }
 
@@ -198,7 +201,8 @@ public class CalculationViewModel extends ViewModel
                 String.valueOf(task.getValue2()),
                 currentInput,
                 Color.GREEN,
-                true
+                true,
+                false
         ));
     }
 

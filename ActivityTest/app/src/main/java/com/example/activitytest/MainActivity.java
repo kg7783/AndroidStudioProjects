@@ -3,6 +3,8 @@ package com.example.activitytest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,7 +39,8 @@ public class MainActivity extends AppCompatActivity
     private EditText editResultMulti;
     private TextView textValueDiv_1, textValueDiv_2;
     private EditText editResultDiv;
-    private Animation pulsateAnimation; // Animations-Objekt
+    private Animation successAnimation;
+    private Animation errorAnimation;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -73,7 +76,9 @@ public class MainActivity extends AppCompatActivity
         viewModel = new ViewModelProvider(this).get(CalculationViewModel.class);
 
         settingsManager = new SettingsManager(this);
-        pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulsate_animation);
+
+        successAnimation = AnimationUtils.loadAnimation(this, R.anim.success_animation);
+        errorAnimation   = AnimationUtils.loadAnimation(this, R.anim.error_animation);
 
         setupToolbarAndInsets();
         initializeViews();
@@ -150,16 +155,46 @@ public class MainActivity extends AppCompatActivity
                 editResult.setText(state.getResultText());
             }
 
-            // 3. Die Hintergrundfarbe setzen
-            editResult.setBackgroundColor(state.getResultBackgroundColor());
+            //3. Die HINTERGRUNDFÜLLUNG setzen (DIE WIRKLICH EINFACHE METHODE)
+            Drawable background = editResult.getBackground();
+            if (background instanceof LayerDrawable)
+            {
+                LayerDrawable layerDrawable = (LayerDrawable) background;
+
+                // Wir holen uns die UNTERSTE Schicht (Index 0), was unsere Füllung ist.
+                // Wir müssen sie nicht casten!
+                Drawable fillLayer = layerDrawable.getDrawable(0);
+
+                // Wir wenden den Farbfilter direkt auf diese Schicht an.
+                // Wichtig: Wir brauchen hier .mutate(), damit die Änderung nur für dieses Feld gilt
+                // und nicht für alle Felder, die dasselbe Drawable verwenden.
+                if (state.getResultBackgroundColor() != android.graphics.Color.WHITE)
+                {
+                    fillLayer.mutate().setColorFilter(state.getResultBackgroundColor(), android.graphics.PorterDuff.Mode.SRC_IN);
+                }
+                else
+                {
+                    // Wenn die Farbe wieder weiß sein soll, entfernen wir den Filter.
+                    fillLayer.mutate().clearColorFilter();
+                }
+            }
 
             // 4. Die Animation bei Erfolg auslösen
             if (state.shouldTriggerSuccessAnimation())
             {
-                editResult.startAnimation(pulsateAnimation);
+                editResult.startAnimation(successAnimation);
                 // Das ViewModel informieren, dass das Event verarbeitet wurde
                 viewModel.onAnimationComplete(isMultiplicationTask);
             }
+
+            // 5. Die Animation bei Fehler auslösen
+            if (state.shouldTriggerErrorAnimation())
+            {
+                editResult.startAnimation(errorAnimation);
+                // Das ViewModel informieren, dass das Event verarbeitet wurde
+                viewModel.onAnimationComplete(isMultiplicationTask);
+            }
+
         });
     }
 
@@ -287,7 +322,7 @@ public class MainActivity extends AppCompatActivity
         Log.d("MainActivityTest", "onCheckResultDiv");
 
         String userInput = editResultDiv.getText().toString();
-        viewModel.checkMultiplicationResult(userInput);
+        viewModel.checkDivisionResult(userInput);
 
         // NEU: Fokus entziehen, damit das Feld beim nächsten Update geleert werden kann.
         editResultDiv.clearFocus();

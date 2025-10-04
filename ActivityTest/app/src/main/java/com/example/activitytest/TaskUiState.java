@@ -9,18 +9,21 @@ public class TaskUiState
     private final String resultText;
     private final int resultBackgroundColor;
     private final boolean triggerSuccessAnimation;
+    private final boolean triggerErrorAnimation;
 
     public TaskUiState(String value1,
                        String value2,
                        String resultText,
                        int resultBackgroundColor,
-                       boolean triggerSuccessAnimation)
+                       boolean triggerSuccessAnimation,
+                       boolean triggerErrorAnimation)
     {
         this.value1                  = value1;
         this.value2                  = value2;
         this.resultText              = resultText;
         this.resultBackgroundColor   = resultBackgroundColor;
         this.triggerSuccessAnimation = triggerSuccessAnimation;
+        this.triggerErrorAnimation   = triggerErrorAnimation;
     }
 
     // Standard-Initialzustand
@@ -31,6 +34,7 @@ public class TaskUiState
         this.resultText = "";
         this.resultBackgroundColor = Color.WHITE;
         this.triggerSuccessAnimation = false;
+        this.triggerErrorAnimation = false;
     }
 
     public String getValue1() { return value1; }
@@ -38,6 +42,7 @@ public class TaskUiState
     public String getResultText() { return resultText; }
     public int getResultBackgroundColor() { return resultBackgroundColor; }
     public boolean shouldTriggerSuccessAnimation() { return triggerSuccessAnimation; }
+    public boolean shouldTriggerErrorAnimation() { return triggerErrorAnimation; }
 
     // HIER IST DIE FEHLENDE METHODE
     /**
@@ -53,7 +58,8 @@ public class TaskUiState
                 this.value2,
                 this.resultText,
                 this.resultBackgroundColor,
-                false // <-- Das ist der entscheidende Punkt
+                false,
+                false
         );
     }
 }
