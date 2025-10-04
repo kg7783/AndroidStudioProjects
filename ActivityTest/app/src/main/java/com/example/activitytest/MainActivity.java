@@ -7,6 +7,9 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +32,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
+import android.os.Handler;
 
 
 public class MainActivity extends AppCompatActivity
@@ -43,6 +47,17 @@ public class MainActivity extends AppCompatActivity
     private EditText editResultDiv;
     private Animation successAnimation;
     private Animation errorAnimation;
+
+
+    // NEU: Handler für die verzögerte Ausführung
+    private final Handler checkHandler = new Handler(Looper.getMainLooper());
+    private Runnable multiplicationCheckRunnable;
+    private Runnable divisionCheckRunnable;
+
+    // NEU: Flags, um die erste Text-Initialisierung zu ignorieren
+    private boolean isMultiplicationInitialized = false;
+    private boolean isDivisionInitialized = false;
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -85,6 +100,94 @@ public class MainActivity extends AppCompatActivity
         setupToolbarAndInsets();
         initializeViews();
         setupObservers();
+
+
+        setupDelayedCheck();
+    }
+
+    private void setupDelayedCheck()
+    {
+        // Definiere, WAS passieren soll, wenn der Timer für die Multiplikation abläuft
+        multiplicationCheckRunnable = () ->
+        {
+            String userInput = editResultMulti.getText().toString();
+            // Nur prüfen, wenn auch etwas eingegeben wurde
+            if (!userInput.isEmpty())
+            {
+                viewModel.checkMultiplicationResult(userInput);
+            }
+        };
+
+        // Definiere, WAS passieren soll, wenn der Timer für die Division abläuft
+        divisionCheckRunnable = () ->
+        {
+            String userInput = editResultDiv.getText().toString();
+            // Nur prüfen, wenn auch etwas eingegeben wurde
+            if (!userInput.isEmpty())
+            {
+                viewModel.checkDivisionResult(userInput);
+            }
+        };
+
+        // Erstelle einen TextWatcher für das Multiplikationsfeld
+        editResultMulti.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+                // Nicht benötigt
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if (!isMultiplicationInitialized)
+                {
+                    isMultiplicationInitialized = true; // Setze das Flag für die Zukunft
+                    return; // Beende die Methode hier, starte keinen Timer
+                }
+
+                // Immer, wenn sich der Text ändert:
+                // 1. Breche den alten, laufenden Timer ab.
+                checkHandler.removeCallbacks(multiplicationCheckRunnable);
+                // 2. Starte einen neuen Timer mit 1.5 Sekunden Verzögerung.
+                checkHandler.postDelayed(multiplicationCheckRunnable, 1500); // 1500ms = 1.5s
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Nicht benötigt
+            }
+        });
+
+        // Erstelle einen TextWatcher für das Divisionsfeld
+        editResultDiv.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+                // Nicht benötigt
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if (!isDivisionInitialized)
+                {
+                    isDivisionInitialized = true; // Setze das Flag für die Zukunft
+                    return; // Beende die Methode hier, starte keinen Timer
+                }
+
+                // Dasselbe für die Division:
+                checkHandler.removeCallbacks(divisionCheckRunnable);
+                checkHandler.postDelayed(divisionCheckRunnable, 1500);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
     }
 
     private void setupToolbarAndInsets()
@@ -151,13 +254,31 @@ public class MainActivity extends AppCompatActivity
             textValue1.setText(state.getValue1());
             textValue2.setText(state.getValue2());
 
-            // 2. Den Eingabetext aktualisieren (Cursor schützen)
-            if (!editResult.isFocused())
+            // 2. FOKUS SETZEN UND TASTATUR ÖFFNEN (NEU)
+            if (state.shouldRequestFocus())
+            {
+                // Fordere den Fokus für das EditText-Feld an.
+                editResult.requestFocus();
+
+                // Hole den InputMethodManager, um die Tastatur zu steuern.
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null)
+                {
+                    // Zeige die Tastatur für das fokussierte Feld an.
+                    imm.showSoftInput(editResult, InputMethodManager.SHOW_IMPLICIT);
+                }
+
+                // Sage dem ViewModel, dass wir die Aktion ausgeführt haben.
+                viewModel.onFocusRequested();
+            }
+
+            // 3. Den Eingabetext aktualisieren (Cursor schützen)
+            if (!editResult.isFocused() || state.getResultText().isEmpty())
             {
                 editResult.setText(state.getResultText());
             }
 
-            //3. Die HINTERGRUNDFÜLLUNG setzen (DIE WIRKLICH EINFACHE METHODE)
+            // 4. Die HINTERGRUNDFÜLLUNG setzen (DIE WIRKLICH EINFACHE METHODE)
             Drawable background = editResult.getBackground();
             if (background instanceof LayerDrawable)
             {
@@ -181,7 +302,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
 
-            // 4. Die Animation bei Erfolg auslösen
+            // 5. Die Animation bei Erfolg auslösen
             if (state.shouldTriggerSuccessAnimation())
             {
                 editResult.startAnimation(successAnimation);
@@ -189,30 +310,12 @@ public class MainActivity extends AppCompatActivity
                 viewModel.onAnimationComplete(isMultiplicationTask);
             }
 
-            // 5. Die Animation bei Fehler auslösen
+            // 6. Die Animation bei Fehler auslösen
             if (state.shouldTriggerErrorAnimation())
             {
                 editResult.startAnimation(errorAnimation);
                 // Das ViewModel informieren, dass das Event verarbeitet wurde
                 viewModel.onAnimationComplete(isMultiplicationTask);
-            }
-
-            // 5. FOKUS SETZEN UND TASTATUR ÖFFNEN (NEU)
-            if (state.shouldRequestFocus())
-            {
-                // Fordere den Fokus für das EditText-Feld an.
-                editResult.requestFocus();
-
-                // Hole den InputMethodManager, um die Tastatur zu steuern.
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null)
-                {
-                    // Zeige die Tastatur für das fokussierte Feld an.
-                    imm.showSoftInput(editResult, InputMethodManager.SHOW_IMPLICIT);
-                }
-
-                // Sage dem ViewModel, dass wir die Aktion ausgeführt haben.
-                viewModel.onFocusRequested();
             }
         });
     }
@@ -322,11 +425,15 @@ public class MainActivity extends AppCompatActivity
     {
         Log.d("MainActivityTest", "onCheckResultMulti");
 
+        // Breche den automatischen Timer ab, da wir jetzt manuell prüfen.
+        checkHandler.removeCallbacks(multiplicationCheckRunnable);
+
         String userInput = editResultMulti.getText().toString();
         viewModel.checkMultiplicationResult(userInput);
 
         // Fokus entziehen, damit das Feld beim nächsten Update geleert werden kann.
         editResultMulti.clearFocus();
+
     }
 
     public void onNewTaskDiv(android.view.View view)
