@@ -44,11 +44,24 @@ public class CalculationViewModel extends ViewModel
     private CalculationTask currentMultiplicationTask;
     private CalculationTask currentDivisionTask;
 
+    // NEU: Eine Factory, um Timer zu erstellen.
+    private final AppTimer.Factory timerFactory;
+
+    // Standard-Konstruktor für die App (verwendet den echten Timer)
     public CalculationViewModel()
     {
+        this(new AndroidTimer.Factory());
+    }
+
+
+    // Konstruktor für Tests (erlaubt das Injizieren einer Fake-Factory)
+    public CalculationViewModel(AppTimer.Factory timerFactory)
+    {
+        this.timerFactory = timerFactory;
+
         multiplicationStrategy = new MultiplicationStrategy(randomNumbers, allowedNumbers);
         divisionStrategy = new DivisionStrategy(randomNumbers, allowedNumbers);
-        Log.d("ViewModel", "ViewModel created");
+//        Log.d("ViewModel", "ViewModel created");
     }
 
     public void setAllowedNumbers(ArrayList<Integer> numbers)
@@ -131,6 +144,12 @@ public class CalculationViewModel extends ViewModel
             {
                 // Korrekt
                 updateStateWithSuccess(state, task, userInput);
+
+                // NEU: Verwende die Factory, um einen Timer zu erstellen und zu starten
+                AppTimer timer = timerFactory.create(1000, 1000, onSuccess);
+                timer.start();
+
+/*
                 // Timer für den Übergang zur nächsten Aufgabe
                 new CountDownTimer(1000, 1000)
                 {
@@ -140,6 +159,7 @@ public class CalculationViewModel extends ViewModel
                         onSuccess.run();
                     }
                 }.start();
+ */
             }
             else
             {

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -51,9 +52,10 @@ public class MainActivity extends AppCompatActivity
             Log.d("MainActivityTest", "value = " + value);
         }
 
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        EdgeToEdge.enable(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Without this, menu will not work
@@ -70,15 +72,11 @@ public class MainActivity extends AppCompatActivity
         // ViewModel holen - dies überlebt Konfigurationsänderungen
         viewModel = new ViewModelProvider(this).get(CalculationViewModel.class);
 
-        setupToolbarAndInsets();
-
         settingsManager = new SettingsManager(this);
-
-        // Lade die Animation einmalig in onCreate
         pulsateAnimation = AnimationUtils.loadAnimation(this, R.anim.pulsate_animation);
 
+        setupToolbarAndInsets();
         initializeViews();
-
         setupObservers();
     }
 
@@ -270,7 +268,11 @@ public class MainActivity extends AppCompatActivity
     {
         Log.d("MainActivityTest", "onCheckResultMulti");
 
-        viewModel.checkMultiplicationResult(editResultMulti.getText().toString());
+        String userInput = editResultMulti.getText().toString();
+        viewModel.checkMultiplicationResult(userInput);
+
+        // Fokus entziehen, damit das Feld beim nächsten Update geleert werden kann.
+        editResultMulti.clearFocus();
     }
 
     public void onNewTaskDiv(android.view.View view)
@@ -284,6 +286,10 @@ public class MainActivity extends AppCompatActivity
     {
         Log.d("MainActivityTest", "onCheckResultDiv");
 
-        viewModel.checkDivisionResult(editResultDiv.getText().toString());
+        String userInput = editResultDiv.getText().toString();
+        viewModel.checkMultiplicationResult(userInput);
+
+        // NEU: Fokus entziehen, damit das Feld beim nächsten Update geleert werden kann.
+        editResultDiv.clearFocus();
     }
 }

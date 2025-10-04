@@ -3,65 +3,48 @@ package com.example.activitytest;
 import android.content.Context;
 import android.graphics.Color;
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule; // WICHTIG!
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule; // WICHTIG!
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit; // WICHTIG!
-import org.mockito.junit.MockitoRule; // WICHTIG!
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import static com.example.activitytest.LiveDataTestUtil.getOrAwaitValue; // NEUER IMPORT
-
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-@RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest
+@RunWith(MockitoJUnitRunner.class) // Notwendig, wenn man Mocking-Frameworks wie Mockito verwendet.
+public class CalculationViewModelTest
 {
-    @Test
-    public void useAppContext()
-    {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.activitytest", appContext.getPackageName());
-    }
-
-    // REGEL 1: Führt Mockito-Annotationen wie @Mock aus.
+    // Diese Regel ist SEHR WICHTIG!
+    // Sie sorgt dafür, dass LiveData-Operationen sofort und synchron ausgeführt werden,
+    // anstatt im Hintergrund auf dem Android-Main-Thread.
     @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    // REGEL 2: Sorgt dafür, dass LiveData-Aufrufe synchron laufen.
-    @Rule
-    public androidx.arch.core.executor.testing.InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
+    // NEU: Mocks für unsere neuen Abhängigkeiten
     @Mock
     private AppTimer.Factory mockTimerFactory;
     @Mock
     private AppTimer mockTimer;
 
+    // Das zu testende Objekt
     private CalculationViewModel viewModel;
 
+    // Diese Methode wird vor JEDEM einzelnen Test ausgeführt.
+    // So stellen wir sicher, dass jeder Test mit einem "frischen" ViewModel startet.
     @Before
     public void setUp()
     {
-        // Dank der MockitoRule werden die @Mock-Objekte jetzt initialisiert.
+        // Sag dem Mock, was er tun soll: Wenn create() aufgerufen wird, gib unseren mockTimer zurück.
         when(mockTimerFactory.create(anyLong(), anyLong(), any(Runnable.class)))
                 .thenReturn(mockTimer);
 
@@ -72,7 +55,7 @@ public class ExampleInstrumentedTest
     // Ein Testfall wird mit der @Test-Annotation markiert.
     // Der Name sollte beschreiben, was getestet wird: "wasPassiert_wennManDasTut_sollteDiesesErgebnisRauskommen"
     @Test
-    public void createNewMultiplicationTask_whenAllowedNumbersAreSet_updatesLiveDataCorrectly() throws InterruptedException
+    public void createNewMultiplicationTask_whenAllowedNumbersAreSet_updatesLiveDataCorrectly()
     {
         // ARRANGE (Vorbereiten)
         // Definiere die erlaubten Zahlen
@@ -82,8 +65,7 @@ public class ExampleInstrumentedTest
         // ACT (Ausführen)
         // Die Methode setAllowedNumbers ruft intern bereits createNew...Task auf.
         // Wir holen uns den aktuellen Zustand aus dem LiveData.
-        // ALT: TaskUiState state = viewModel.multiplicationState.getValue();
-        TaskUiState state = getOrAwaitValue(viewModel.multiplicationState); // NEU & SICHER
+        TaskUiState state = viewModel.multiplicationState.getValue();
 
         // ASSERT (Überprüfen)
         // Überprüfen, ob der Zustand nicht null ist
@@ -95,16 +77,12 @@ public class ExampleInstrumentedTest
     }
 
     @Test
-    public void checkMultiplicationResult_withCorrectInput_setsStateToSuccess() throws InterruptedException
-    {
+    public void checkMultiplicationResult_withCorrectInput_setsStateToSuccess() {
         // ARRANGE (Vorbereiten)
         // Erstelle eine Aufgabe. Wir nehmen hier einen Trick: Da wir die Zufallszahlen nicht steuern können,
         // holen wir uns die erstellte Aufgabe und berechnen das Ergebnis selbst.
         viewModel.setAllowedNumbers(new ArrayList<>(Arrays.asList(7))); // z.B. nur die 7er-Reihe
-
-        // ALT: initial_state state = viewModel.multiplicationState.getValue();
-        TaskUiState initial_state = getOrAwaitValue(viewModel.multiplicationState); // NEU & SICHER
-
+        TaskUiState initial_state = viewModel.multiplicationState.getValue();
         Assert.assertNotNull(initial_state);
         int value1 = Integer.parseInt(initial_state.getValue1());
         int value2 = Integer.parseInt(initial_state.getValue2());
@@ -115,10 +93,7 @@ public class ExampleInstrumentedTest
         viewModel.checkMultiplicationResult(String.valueOf(correctResult));
 
         // ASSERT (Überprüfen)
-
-        // ALT: final_state = viewModel.multiplicationState.getValue();
-        TaskUiState final_state = getOrAwaitValue(viewModel.multiplicationState); // NEU & SICHER
-
+        TaskUiState final_state = viewModel.multiplicationState.getValue();
         Assert.assertNotNull(final_state);
         // Der Hintergrund sollte jetzt GRÜN sein.
         Assert.assertEquals(Color.GREEN, final_state.getResultBackgroundColor());
@@ -127,14 +102,10 @@ public class ExampleInstrumentedTest
     }
 
     @Test
-    public void checkMultiplicationResult_withWrongInput_setsStateToError() throws InterruptedException
-    {
+    public void checkMultiplicationResult_withWrongInput_setsStateToError() {
         // ARRANGE
         viewModel.setAllowedNumbers(new ArrayList<>(Arrays.asList(3)));
-
-        // ALT: initial_state = viewModel.multiplicationState.getValue();
-        TaskUiState initial_state = getOrAwaitValue(viewModel.multiplicationState); // NEU & SICHER
-
+        TaskUiState initial_state = viewModel.multiplicationState.getValue();
         Assert.assertNotNull(initial_state);
         int value1 = Integer.parseInt(initial_state.getValue1());
         int value2 = Integer.parseInt(initial_state.getValue2());
@@ -145,10 +116,7 @@ public class ExampleInstrumentedTest
         viewModel.checkMultiplicationResult(String.valueOf(wrongResult));
 
         // ASSERT
-
-        // ALT: final_state = viewModel.multiplicationState.getValue();
-        TaskUiState final_state = getOrAwaitValue(viewModel.multiplicationState); // NEU & SICHER
-
+        TaskUiState final_state = viewModel.multiplicationState.getValue();
         Assert.assertNotNull(final_state);
         // Der Hintergrund sollte jetzt ROT sein.
         Assert.assertEquals(Color.RED, final_state.getResultBackgroundColor());

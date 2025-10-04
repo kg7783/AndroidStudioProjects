@@ -40,4 +40,21 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // Lokale Unit-Tests (laufen auf dem PC)
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // Für LiveData-Tests
+
+    // Mockito für das Mocking von Objekten in Tests
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.11.0") // Falls Sie JUnit 5 verwenden
+
+    // Instrumentierte Tests (laufen auf dem Gerät/Emulator)
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // NEU: Fügen Sie Mockito auch für instrumentierte Tests hinzu
+    androidTestImplementation("org.mockito:mockito-android:5.11.0") // Für /androidTest
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+
 }
