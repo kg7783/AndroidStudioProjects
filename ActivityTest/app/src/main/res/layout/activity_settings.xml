@@ -7,6 +7,897 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <CheckBox
+        android:id="@+id/checkBox10_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_5"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_6"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_10"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_4"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_7"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_9"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_3"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_8"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_2"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox10_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox10_5"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_9"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_10"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_2"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_3"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_6"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_4"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_7"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox9_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox9_8"
+        app:layout_constraintTop_toTopOf="@+id/switch9" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_5"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_3"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_10"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_6"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_7"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_9"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_2"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_8"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox8_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox8_4"
+        app:layout_constraintTop_toTopOf="@+id/switch8" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_5"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_2"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_3"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_4"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_7"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_8"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_9"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_10"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox7_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox7_6"
+        app:layout_constraintTop_toTopOf="@+id/switch7" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_6"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_2"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_3"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_4"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_5"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_8"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_9"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_10"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox6_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox6_7"
+        app:layout_constraintTop_toTopOf="@+id/switch6" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_5"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_2"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_3"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_4"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_7"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_8"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_9"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_10"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox5_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox5_6"
+        app:layout_constraintTop_toTopOf="@+id/switch5" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_6"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_2"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_3"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_4"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_5"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_8"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_9"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_10"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox4_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4_7"
+        app:layout_constraintTop_toTopOf="@+id/switch4" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_5"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_2"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_3"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_4"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_7"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_8"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_9"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_10"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox3_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox3_6"
+        app:layout_constraintTop_toTopOf="@+id/switch3" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_8"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_5"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_10"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_2"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_3"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_7"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_4"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_6"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <CheckBox
+        android:id="@+id/checkBox2_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2_9"
+        app:layout_constraintTop_toTopOf="@+id/switch2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="2"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="3"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="4"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="5"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="6"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="7"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="8"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="9"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:text="10"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_5"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_6"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_6"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_7"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_7"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_8"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_8"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_9"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_9"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_10"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_10"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_2"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_3"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_3"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_4"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_4"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_5"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_Settings"
         android:layout_width="match_parent"
@@ -22,131 +913,131 @@
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="1 er "
-        android:textSize="34sp"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="43dp"
+        android:text="1"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch2"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="2 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch3"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="3 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch2" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch5"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="5 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch6"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="6 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch5" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch7"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="7 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch6" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch8"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="8 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch7" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch9"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="9 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch8" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch10"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="10 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch9" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch4"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="4 er "
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch3" />
 
@@ -161,6 +1052,25 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch10" />
+
+    <CheckBox
+        android:id="@+id/checkBox1_1"
+        android:layout_width="26dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox1_2"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:text="1"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Settings" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
